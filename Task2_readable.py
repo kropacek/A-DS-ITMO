@@ -49,7 +49,7 @@ def find_plagiat(check_text: str, text: str) -> float:
         if i in check_text_triplets:
             check_text_triplets[i] += 1
 
-    print(check_text_triplets)
+    # print(check_text_triplets)
     return (sum(
         i.__len__() for i in check_text_triplets if
         check_text_triplets.get(i) != 0) / sum(list(map(lambda d: d.__len__(), check_text_triplets)))) * 100
