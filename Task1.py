@@ -209,5 +209,4 @@ import time
 for i in [naive, rabin_karp, boyer_moore, knut_moris]:
     start = time.time()
     res = i(nums)
-
-    print(time.time() - start, i.__name__, f'Больше всего двузначного числа: {max(res, key=int)}. Всего встречено: {res[max(res,key=int)]}')
+    print(time.time() - start, i.__name__, f'Больше всего двузначного числа: {max(res.items(), key= lambda d: d[1])}')
