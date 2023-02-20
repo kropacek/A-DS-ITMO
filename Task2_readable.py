@@ -1,6 +1,7 @@
 import docx
 import codecs
 import time
+import wikipedia
 
 special_symbhols = ['.', ',', ':', '\n', '-', ')', '1', '2',
                     '3', '4', '5', '6', '7', '8', '9', '0',
@@ -8,7 +9,10 @@ special_symbhols = ['.', ',', ':', '\n', '-', ')', '1', '2',
                     '  ', '–', '|', '<ref>', 'en', 'i', "'''" ]  # Определяем символы для удаления для адекватной проверки слов в тексте
 
 
-def get_text(file_name: str) -> str:
+def get_text(file_name: str, wiki=False) -> str:
+    if wiki:
+        wikipedia.set_lang('ru')
+        return delete_special_symbols(wikipedia.page(file_name).content)
     if '.docx' in file_name:
         file = docx.Document(file_name)
         text = []
@@ -62,8 +66,8 @@ def main():
     :return:
     '''
     start = time.time()
-    print(find_plagiat(get_text('Научный метод.docx'), get_text('text_6.txt')), "%")
-    print(find_plagiat(get_text('text_6.txt'), get_text('Научный метод.docx')), "%")
+    print(find_plagiat(get_text('Научный метод.docx'), get_text('Научный метод', wiki=True)), "%")
+    print(delete_special_symbols(get_text('Научный метод', wiki=True)))
     print(f'Затрачено времени: {time.time()-start}')
 
 
